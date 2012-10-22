@@ -7,7 +7,11 @@ install: $(INSTALL_STAMP)
 install-dev: $(DEV_STAMP)
 
 tests: install-dev
-	nosetests --cover-package=respire
+	# Run todo server
+	serve_todo & echo $$! > /tmp/daemon.pid ; sleep 1
+	-nosetests --cover-package=respire
+	# Kill todo_server
+	kill `cat /tmp/daemon.pid`; rm /tmp/daemon.pid
 
 $(INSTALL_STAMP): 
 	bin/python setup.py develop

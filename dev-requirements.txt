@@ -3,4 +3,3 @@ easydict
 nose
 requests
 rxjson
-WebTest

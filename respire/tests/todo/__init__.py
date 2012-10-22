@@ -9,7 +9,10 @@ def main(**settings):
 
     return config.make_wsgi_app()
 
-if __name__ == "__main__":
+def serve():
     app = main()
     server = make_server('0.0.0.0', 8080, app)
     server.serve_forever()
+
+if __name__ == "__main__":
+    serve()

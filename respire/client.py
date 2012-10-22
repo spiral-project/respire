@@ -60,17 +60,17 @@ def make_spore_function(method_definition, service_description):
 
 def decode_response(resp, definition):
     """Decode the response if we know how to handle it"""
-    if definition.format == 'json':
-        if resp.json:
-            return resp.json
-    return resp.body
+    if hasattr(resp, 'json'):
+        return resp.json
+    else:
+        return resp.body
 
 
 def define_format(kw, definition):
     """Set the correct Content-Type headers and encode the data to the right
     format, if we know how to handle it.
     """
-    if definition.format == 'json':
+    if 'json' in definition.formats:
         if 'headers' not in kw or 'Content-Type' not in kw['headers']:
             kw['headers'] = {'Content-Type': 'application/json'}
 
@@ -92,7 +92,7 @@ def get_method_documentation(definition):
 {description}
 
 This binds to the {path} method.
-Output format is {format}.
+Output format is in {formats}.
 """.format(**definition)
     return documentation
 
