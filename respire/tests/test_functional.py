@@ -27,8 +27,15 @@ class FunctionalTest(unittest.TestCase):
             spore_schema = rx.make_schema(spore_json_schema)
             self.assertTrue(spore_schema.check(requests.get(self.spore_url).json))
 
-    def test_get_todo(self):
+    def test_get_todo_empty(self):
         """Test the first todo method."""
-        resp = self.client.get_todo()
-        self.assertEqual(resp, {})
+        result = self.client.get_todo()
+        self.assertEqual(result, {})
+
+    def test_get_todo_with_key(self):
+        """Test the first todo method."""
+        self.client.post_todo(data={'first': 'value'})
         
+        result = self.client.get_todo()
+        self.assertEqual(result, {'first': 'value'})
+
