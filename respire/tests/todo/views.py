@@ -6,7 +6,8 @@ from cornice.service import get_services
 from pyramid.exceptions import NotFound
 from pyramid.response import Response
 
-TODOS = {}
+from respire.tests.todo import TODOS as todos
+
 HEADERS = {'Content-Type': 'application/json'}
 VERSION = '0.1'
 
@@ -23,11 +24,10 @@ spore = Service(name="spore",
                 path='/spore',
                 description="Spore endpoint")
 
-
 @todo.get()
 def get(request):
     """Retrieves all task."""
-    return TODOS
+    return todos
 
 
 @todo.post()
@@ -41,7 +41,8 @@ def post(request):
         response = Response(status=400, body=json.dumps({"error": e.message}),
                             headers=HEADERS)
     else:
-        TODOS[key] = value
+        
+        todos[key] = value
         created = '%s/todo/%s' % (request.application_url, key)
         response = Response(status="201 Created",
                             body=json.dumps({'key': key}),
@@ -55,10 +56,10 @@ def get(request):
     """Retrieves."""
     key = request.matchdict['key']
 
-    if key not in TODOS:
+    if key not in todos.keys():
         raise NotFound("Unknown key '%s'." % (key))
 
-    return {key: TODOS[key]}
+    return {key: todos[key]}
 
 
 @task.put()
@@ -76,7 +77,7 @@ def put(request):
         response = Response(status=400, body=json.dumps({"error": e.message}),
                             headers=HEADERS)
     else:
-        TODOS[key] = value
+        todos[key] = value
         response = {'key': key}
 
     return response
@@ -91,10 +92,10 @@ def delete(request):
     """
     key = request.matchdict['key']
 
-    if key not in TODOS:
+    if key not in todos.keys():
         raise NotFound("Unknown key '%s'." % (key))
 
-    del TODOS[key]
+    del todos[key]
 
 
 @spore.get()

@@ -36,12 +36,11 @@ def make_spore_function(method_definition, service_description):
         # for each param passed to the method,
         # match if it's needed in the path, and replace it there if
         # needed
-
         path = method_definition.path
         for kw in method_kw.keys():
             key = ':%s' % kw
             if key in path:
-                path.replace(key, method_kw.pop(kw))
+                path = path.replace(key, method_kw.pop(kw))
 
         url = urljoin(service_description.base_url, path)
 
