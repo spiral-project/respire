@@ -1,0 +1,6 @@
+cornice
+easydict
+nose
+requests
+rxjson
+WebTest

@@ -1,6 +1,0 @@
-requests
-easydict
-cornince
-rxjson
-nose
-WebTest

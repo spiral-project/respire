@@ -1,2 +1,7 @@
 *~
 *.pyc
+
+dist/
+d2to1*/
+*.egg-info/
+.*.stamp
