@@ -40,7 +40,7 @@ def make_spore_function(method_definition, service_description):
         path = method_definition.path
         for kw in method_kw.keys():
             key = ':%s' % kw
-            if key in path:
+            if key in path and kw != 'data':
                 path = path.replace(key, method_kw.pop(kw))
 
         url = urljoin(service_description.base_url, path)
