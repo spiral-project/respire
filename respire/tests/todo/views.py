@@ -101,6 +101,9 @@ def delete(request):
 
     """
     key = request.matchdict['key']
+    if not request.GET.get('access_token'):
+        return Response(status=400, body=json.dumps({"error": 'access_token not found'}),
+                        headers=HEADERS)
 
     if key not in todos.keys():
         raise NotFound("Unknown key '%s'." % (key))

@@ -56,7 +56,7 @@ class FunctionalTest(unittest.TestCase):
         result = self.client.get_todo()
         self.assertEqual(result, {'first': 'value', 'second':'Hello you'})
 
-        self.client.delete_task(key='second')
+        self.client.delete_task(key='second', data={'access_token': 'toto'})
 
         result = self.client.get_todo()
         self.assertEqual(result, {'first': 'value'})

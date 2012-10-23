@@ -1,3 +1,4 @@
+from urllib import urlencode
 from urlparse import urljoin
 import json
 
@@ -45,6 +46,11 @@ def make_spore_function(method_definition, service_description):
         url = urljoin(service_description.base_url, path)
 
         define_format(method_kw, method_definition)
+
+        if method_definition.method == 'DELETE' and 'data' in method_kw:
+            data = method_kw.pop('data')
+            data = json.loads(data)
+            url += '?%s' % urlencode(data)
 
         # make the actual query to the resource
         resp = requests.request(method_definition.method, url, **method_kw)
