@@ -14,9 +14,9 @@ tests: install-dev
 	kill `cat /tmp/daemon.pid`; rm /tmp/daemon.pid
 
 $(INSTALL_STAMP): setup.py setup.cfg
-	bin/python setup.py develop
+	python setup.py develop
 	touch $@
 
-$(DEV_STAMP): dev-requirements.txt
+$(DEV_STAMP): dev-requirements.txt install
 	pip install -r dev-requirements.txt
 	touch $@

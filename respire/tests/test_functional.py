@@ -1,15 +1,14 @@
 import json
 import os
-from redis import Redis
-import requests
-from requests.exceptions import HTTPError
 import unittest
 
+import requests
+from requests.exceptions import HTTPError
 from rxjson import Rx
 
 from respire import client_from_url
 
-redis = Redis()
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
