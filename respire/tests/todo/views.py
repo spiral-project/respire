@@ -51,6 +51,16 @@ def post(request):
     return response
 
 
+@todo.delete()
+def delete(request):
+    """Delete all items.
+
+    The object reference cannot change.
+    
+    """
+    for key in todos.keys():
+        del todos[key]
+
 @task.get()
 def get(request):
     """Retrieves."""
