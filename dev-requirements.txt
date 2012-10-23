@@ -1,5 +1,2 @@
-cornice
-easydict
 nose
-requests
 rxjson
