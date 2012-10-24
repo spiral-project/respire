@@ -22,4 +22,5 @@ How to install it?
 Currently, Respire is not packaged for pypi, so you need to get it from git::
 
     $ git clone http://github.com/spiral-project/respire.git
-    $ pip install -r requirements.txt
+    (respire)$ make install
+    (respire)$ make tests
