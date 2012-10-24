@@ -8,6 +8,7 @@
     bin/pserve development.ini --reload
     Using db "daybed"
     serving on http://0.0.0.0:8000
+    $ cd ../respire/examples/
     $ python test_daybed.py
 
 """
