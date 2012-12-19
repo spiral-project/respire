@@ -28,7 +28,7 @@ class FunctionalTest(unittest.TestCase):
         with open(os.path.join(HERE, 'spore_validation.rx')) as f:
             spore_json_schema = json.loads(f.read())
             spore_schema = rx.make_schema(spore_json_schema)
-            self.assertTrue(spore_schema.check(requests.get(self.spore_url).json))
+            self.assertTrue(spore_schema.check(requests.get(self.spore_url).json()))
 
     def test_get_todo_empty(self):
         """Test the first todo method."""
