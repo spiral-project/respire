@@ -12,7 +12,7 @@ def client_from_url(url):
     :param url: the url you want to get the SPORE schema from
 
     """
-    schema = requests.get(url).json
+    schema = requests.get(url).json()
     return Client(description=schema)
 
 
@@ -66,7 +66,7 @@ def make_spore_function(method_definition, service_description):
 def decode_response(resp, definition):
     """Decode the response if we know how to handle it"""
     if hasattr(resp, 'json'):
-        return resp.json
+        return resp.json()
     else:
         return resp.body
 
