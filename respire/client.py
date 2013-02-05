@@ -122,7 +122,7 @@ class Client(object):
             url += '?%s' % urlencode(data)
 
         # make the actual query to the resource
-        resp = self.session.request(definition.method, url, params=method_kw)
+        resp = self.session.request(definition.method, url, **method_kw)
         if raise_for_status:
             resp.raise_for_status()
 
