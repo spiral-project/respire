@@ -6,29 +6,26 @@ import requests
 from easydict import EasyDict
 
 
-def client_from_url(url):
+def client_from_url(url, session=requests):
     """Builds a client from an url
 
     :param url: the url you want to get the SPORE schema from
+    :param session: the :class:`request.Session` instance to use. Defaults to
+                    the requests module itself.
 
     """
-    schema = requests.get(url).json()
-    return Client(description=schema)
+    schema = session.get(url).json()
+    return Client(description=schema, session=session)
 
 
 def make_spore_function(client, method_definition):
     """Returns the actual function being exposed to the end user.
 
-    Handles the actual call to the resource and define for you some
-    additional headers and behaviour depending on the spore definition that was
-    given.
+    :param client:
+        the :class:`Client` instance to which the function will be bounded.
 
     :param method_definition:
         Definition of the method we are defining the function.
-
-    :param service_description:
-        SPORE description of the service. Could be useful to get top-level
-        information, such as the base url of the service.
     """
     def spore_function(raise_for_status=True, **method_kw):
         return client.call_spore_function(
@@ -84,6 +81,10 @@ class Client(object):
     :param description:
         a python object containing the definition of the SPORE service
 
+    :param session:
+        a :class:`requests.Session` instance that will be used to perform the
+        http requests.
+
     This client provides two main things: the description, available as
     a dotted dict, and a number of methods to interact with the service.
     """
@@ -103,6 +104,18 @@ class Client(object):
 
     def call_spore_function(self, definition,
                             raise_for_status=True, **method_kw):
+        """
+        Handles the actual call to the resource and define for you some
+        additional headers and behaviour depending on the spore definition
+        that was given.
+
+        :param method_definition:
+            Definition of the method we are defining the function.
+
+        :param service_description:
+            SPORE description of the service. Could be useful to get top-level
+            information, such as the base url of the service.
+        """
         # for each param passed to the method,
         # match if it's needed in the path, and replace it there if
         # needed
