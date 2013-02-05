@@ -17,9 +17,10 @@ any other SPORE enabled service.)::
     cl.get_data(model_name='todo')
 
 If you need to add headers to all the queries or handle cookies, you can pass a
-``request.Session`` instance::
+``requests.Session`` instance::
 
     from request import client_from_url
+    import requests
 
     session = requests.Session()
     session.headers['X-Some-App-Key'] = 'myapplicationkey'
