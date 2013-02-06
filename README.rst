@@ -16,6 +16,19 @@ any other SPORE enabled service.)::
     cl.post_data(model_name='todo', data=dict(item='make it work', status='todo'))
     cl.get_data(model_name='todo')
 
+If you need to add headers to all the queries or handle cookies, you can pass a
+``requests.Session`` instance::
+
+    from request import client_from_url
+    import requests
+
+    session = requests.Session()
+    session.headers['X-Some-App-Key'] = 'myapplicationkey'
+    
+    cl = client_from_url('http://localhost:8000/spore', session=session)
+    cl.post_data(model_name='todo', data=dict(item='make it work', status='todo'))
+    cl.get_data(model_name='todo')
+
 How to install it?
 ------------------
 
